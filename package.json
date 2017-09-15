@@ -19,6 +19,6 @@
   "dependencies": {
     "inquirer": "^3.2.3",
     "mysql": "^2.14.1",
-    "tablefy": "^1.0.0"
+    "tablefy": "^1.0.3"
   }
 }

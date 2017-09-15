@@ -28,7 +28,7 @@ function main(){
       message: 'Product ID:'
     }
   ]).then((product)=>{
-    connection.query("SELECT product_name,stock_quantity FROM products WHERE item_id = ?",[product.choice], (err,res)=>{
+    connection.query("SELECT product_name,stock_quantity,price FROM products WHERE item_id = ?",[product.choice], (err,res)=>{
       table.draw(res);
       inquirer.prompt([
         {
@@ -38,9 +38,9 @@ function main(){
         }
       ]).then((amount)=>{
         if(amount.choice <= res[0].stock_quantity){
-          connection.query("UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",[amount.choice,product.choice], (err,res)=>{
+          connection.query("UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",[amount.choice,product.choice], ()=>{
             if(err) throw err;
-            console.log(`You bought ${amount.choice}`);
+            console.log(`You bought ${amount.choice} at $${res[0].price*amount.choice}`);
           });
         } else {
           console.log(`There are not that many to buy.`);
